@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { HttpCommunicationsService } from './http-communications/http-communications.service';
 
@@ -7,8 +7,6 @@ import { HttpCommunicationsService } from './http-communications/http-communicat
 @NgModule({
   declarations: [],
   providers:[HttpCommunicationsService],
-  imports: [
-    CommonModule
-  ]
+  imports: [HttpClientModule]
 })
 export class CoreModule { }
