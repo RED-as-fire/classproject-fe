@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpCommunicationsService } from 'src/app/core/http-communications/http-communications.service';
-import { Student } from 'src/app/core/model/student.interface';
+import { newStudent, Student } from 'src/app/core/model/student.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +12,15 @@ export class StudentsFacadeService {
 
   retrieveStudents():Observable<Student[]>{
     return this.http.retrieveGetCall("student");
+  }
+
+  deleteStudent(id:number){
+    return this.http.retrieveDeleteCall(`student/${id}`);
+  }
+
+  addStudent(student:newStudent){
+    return this.http.retrievePostCall("student",{
+      ...student
+    })
   }
 }
