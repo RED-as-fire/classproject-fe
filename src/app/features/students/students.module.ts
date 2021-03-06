@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NbButtonModule, NbCardModule, NbDialogModule, NbToggleModule } from '@nebular/theme';
+import { NbDialogModule, NbToggleModule } from '@nebular/theme';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AddModalComponent } from './components/add-modal/add-modal.component';
 import { StudentsComponent } from './components/main/students.component';
 import { StudentsFacadeService } from './components/services/students-facade.service';
 import { StudentsRoutingModule } from './students-routing.module';
@@ -10,14 +11,12 @@ import { StudentsRoutingModule } from './students-routing.module';
 
 
 @NgModule({
-  declarations: [StudentsComponent],
+  declarations: [StudentsComponent, AddModalComponent],
   imports: [
     CommonModule,
     StudentsRoutingModule,
     SharedModule,
     NbToggleModule,
-    NbCardModule,
-    NbButtonModule,
     NbDialogModule.forChild()
   ],
   providers:[StudentsFacadeService]
