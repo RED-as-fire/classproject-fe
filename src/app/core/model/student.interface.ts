@@ -5,3 +5,4 @@ export interface Student {
   surname:string;
   courses:Course[]
 }
+export type newStudent = Omit<Student, "id"| "courses">;
