@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NbToggleModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbInputModule, NbToggleModule } from '@nebular/theme';
 
 
 
@@ -15,9 +15,15 @@ import { NbToggleModule } from '@nebular/theme';
     ReactiveFormsModule,
     RouterModule,
     NbToggleModule,
-
+    NbCardModule,
+    NbButtonModule,
+    NbInputModule,
   ],
   exports:[
+    NbToggleModule,
+    NbCardModule,
+    NbButtonModule,
+    NbInputModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
