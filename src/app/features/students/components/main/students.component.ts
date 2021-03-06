@@ -12,6 +12,7 @@ import {
 import {
   Student
 } from "src/app/core/model/student.interface";
+import { AddModalComponent } from "../add-modal/add-modal.component";
 import {
   StudentsFacadeService
 } from "../services/students-facade.service";
@@ -60,12 +61,7 @@ export class StudentsComponent implements OnInit {
       this.initialstudents = students;
       console.log({
         students
-      })
-      this.cols.forEach(header => {
-        this.students.forEach(s => {
-          console.log(s[header.value])
-        })
-      })
+      });
 
     })
 
@@ -102,8 +98,27 @@ export class StudentsComponent implements OnInit {
       context: `sei sicuro di voler eliminare ${student.name} ${student.surname}?`
     }).onClose.subscribe(event => {
       if(event=="delete"){
-        console.log("tolgo", student.name)
+        this.service.deleteStudent(student.id).subscribe();
+        this.initialstudents=this.initialstudents.filter(s=>s.id !==student.id);
+        this.students=this.initialstudents;
+        this.onlyCourseLess=false;
       }
     });
+  }
+
+  add(){
+    this.dialogService.open(AddModalComponent)
+    .onClose.subscribe((newStudent:Student)=>{
+      if(newStudent !=undefined){
+        this.service.addStudent(newStudent).subscribe((savedStudent:Student)=>{
+          console.log({savedStudent});
+          this.initialstudents.splice(this.initialstudents.length,0,savedStudent[0]);
+          this.students=[...this.initialstudents];
+          this.onlyCourseLess=false;
+        })
+      } else{
+        console.log("annullato")
+      }
+    })
   }
 }
