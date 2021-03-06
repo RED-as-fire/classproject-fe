@@ -1,0 +1,11 @@
+<nb-card>
+  <nb-card-header>Aggiungi studente</nb-card-header>
+  <nb-card-body>
+    <input type="text" nbInput placeholder="nome studente" [(ngModel)]="name">
+    <input type="text" nbInput placeholder="cognome studente" [(ngModel)]="surname">
+  </nb-card-body>
+  <nb-card-footer class="flex justify-between">
+    <button nbButton (click)="cancel()">Annulla</button>
+    <button nbButton (click)="submit()" status="success">Aggiungi</button>
+  </nb-card-footer>
+</nb-card>
