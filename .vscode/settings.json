@@ -1,0 +1,10 @@
+{
+    "conventionalCommits.scopes": [
+        "module",
+        "component",
+        "service",
+        "assets",
+        "feature lazy module",
+        "interface"
+    ]
+}
