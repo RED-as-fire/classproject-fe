@@ -25,6 +25,7 @@ import {
 })
 export class StudentsComponent implements OnInit {
 
+  addModalInstance:AddModalComponent
   cols: any[];
   onlyCourseLess: boolean = false;
   students: Student[];
@@ -80,11 +81,12 @@ export class StudentsComponent implements OnInit {
     }
   }
 
-  deleteStudent(ref: any) {
+  deleteStudent(studentId: number) {
     console.log("pronto ad eliminare studente");
-    console.log({
-      ref
-    });
+    this.service.deleteStudent(studentId).subscribe();
+    this.initialstudents=this.initialstudents.filter(s=>s.id !==studentId);
+    this.students=this.initialstudents;
+    this.onlyCourseLess=false;
 
   }
   editStudent(student: Student) {
@@ -106,19 +108,47 @@ export class StudentsComponent implements OnInit {
     });
   }
 
-  add(){
-    this.dialogService.open(AddModalComponent)
-    .onClose.subscribe((newStudent:Student)=>{
-      if(newStudent !=undefined){
-        this.service.addStudent(newStudent).subscribe((savedStudent:Student)=>{
-          console.log({savedStudent});
-          this.initialstudents.splice(this.initialstudents.length,0,savedStudent[0]);
-          this.students=[...this.initialstudents];
-          this.onlyCourseLess=false;
-        })
-      } else{
-        console.log("annullato")
+  upsertStudent(type:string,$event:any){
+      console.log({$event})
+      console.log({type})
+    if(type==="add"){
+      this.dialogService.open(AddModalComponent)
+      .onClose.subscribe((newStudent:Student)=>{
+        if(newStudent !=undefined){
+          this.service.addStudent(newStudent).subscribe((savedStudent:Student)=>{
+            console.log({savedStudent});
+            this.initialstudents.splice(this.initialstudents.length,0,savedStudent[0]);
+            this.students=[...this.initialstudents];
+            this.onlyCourseLess=false;
+          })
+        } else{
+          console.log("annullato")
+        }
+      })
+    } else if(type==="edit"){
+      const student:any={
+        name:$event.name,
+        surname:$event.surname,
+        id:$event.id
       }
-    })
+      this.dialogService.open(AddModalComponent,{context:{...student}})
+      .onClose.subscribe((editStudent:Student)=>{
+        if(editStudent !=undefined){
+          this.service.editStudent(editStudent).subscribe((editedStudent:Student)=>{
+            console.log({editedStudent});
+            const idx = this.initialstudents.findIndex(
+              el => el.id === editedStudent.id
+            );
+            this.initialstudents.splice(idx, 1, editedStudent[0]);
+            this.students=[...this.initialstudents];
+            this.onlyCourseLess=false;
+          })
+        } else{
+          console.log("annullato")
+        }
+      })
+    }
   }
+
+
 }
