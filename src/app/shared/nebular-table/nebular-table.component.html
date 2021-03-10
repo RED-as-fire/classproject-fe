@@ -1,0 +1,85 @@
+<div class="overflow-x-auto">
+  <div class="min-w-screen min-h-screen bg-gray-100 flex  justify-center bg-gray-100 font-sans overflow-hidden">
+    <div class="w-full lg:w-5/6">
+      <div class="bg-white shadow-md rounded my-6">
+        <table class="min-w-max w-full table-auto">
+          <caption>
+            <div class="flex  items-center p-2">
+              <button (click)="add()"
+                class="bg-purple-200 text-purple-600 hover:bg-purple-300 mr-2 font-bold py-1 px-2 rounded">
+                Aggiungi
+              </button>
+              <!--
+                filtri aggiuntivi qui: probabilmente con ng-content
+                <p class="mr-2 font-medium uppercase text-purple-600">senza corso</p>
+              <nb-toggle status="basic" [(ngModel)]="onlyCourseLess" (ngModelChange)="filterStudents()"></nb-toggle> -->
+
+
+            </div>
+          </caption>
+          <thead>
+            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+              <th class="py-3 px-6" *ngFor="let header of cols" [class.text-center]="header.direction === 'center'"
+                [class.text-left]="header.direction === 'left'">
+                {{header.label}}</th>
+
+
+            </tr>
+          </thead>
+          <tbody class="text-gray-600 text-sm font-light">
+            <ng-container *ngFor="let resource of resources">
+              <tr class="border-b border-gray-200 hover:bg-gray-100">
+                <ng-container *ngFor="let header of cols">
+                  <td class="py-3 px-6 text-left whitespace-nowrap" *ngIf="header.value!=='actions'">
+                    <div class="flex items-center">
+                      <ng-template *ngIf="header.value!==colToIgnore then resourcee else fromParent "></ng-template>
+                      <ng-template #fromParent>
+                        <ng-container *ngIf="customtdTemplateRef" [ngTemplateOutlet]="customtdTemplateRef"
+                          [ngTemplateOutletContext]="{$implicit:resource, hd:header}">
+                        </ng-container>
+                      </ng-template>
+                      <ng-template #resourcee>
+                        <span>{{resource[header.value]}}</span>
+                      </ng-template>
+
+                    </div>
+                  </td>
+                </ng-container>
+
+                <td class="py-3 px-6 text-center">
+                  <div class="flex item-center justify-center">
+                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                      (click)="editresource(resource)">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                      </svg>
+                    </div>
+                    <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                      (click)="open(dialog,resource)">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Elimina studente</nb-card-header>
+    <nb-card-body>{{ data }}</nb-card-body>
+    <nb-card-footer class="flex justify-between">
+      <button nbButton (click)="ref.close()">Annulla</button>
+      <button nbButton status="danger" (click)="ref.close('delete')">Elimina</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>

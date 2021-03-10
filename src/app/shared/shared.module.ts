@@ -3,12 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NbButtonModule, NbCardModule, NbInputModule, NbToggleModule } from '@nebular/theme';
+import { NebularTableComponent } from './nebular-table/nebular-table.component';
 
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [NebularTableComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -27,6 +28,7 @@ import { NbButtonModule, NbCardModule, NbInputModule, NbToggleModule } from '@ne
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    NebularTableComponent
   ]
 })
 export class SharedModule { }
