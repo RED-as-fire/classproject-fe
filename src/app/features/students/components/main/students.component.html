@@ -1,4 +1,4 @@
-<div class="overflow-x-auto">
+<!-- <div class="overflow-x-auto">
   <div class="min-w-screen min-h-screen bg-gray-100 flex  justify-center bg-gray-100 font-sans overflow-hidden">
     <div class="w-full lg:w-5/6">
       <div class="bg-white shadow-md rounded my-6">
@@ -12,8 +12,7 @@
               <p class="mr-2 font-medium uppercase text-purple-600">senza corso</p>
               <nb-toggle status="basic" [(ngModel)]="onlyCourseLess" (ngModelChange)="filterStudents()"></nb-toggle>
 
-              <!-- <p-inputSwitch [(ngModel)]="onlyCourseLess" (onChange)="filterStudents()">
-              </p-inputSwitch> -->
+
             </div>
           </caption>
           <thead>
@@ -90,4 +89,15 @@
       <button nbButton status="danger" (click)="ref.close('delete')">Elimina</button>
     </nb-card-footer>
   </nb-card>
-</ng-template>
+</ng-template> -->
+<app-nebular-table [cols]="cols" [resources]="students" [colToIgnore]="'courses'" [addModal]="addModalInstance"
+  (addResource)="upsertStudent('add',$event)" (deleteResource)="deleteStudent($event)"
+  (editResource)="upsertStudent('edit',$event)">
+  <!-- <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs"
+    *ngIf="header.value==='courses' ; else resource">{{joinCourses(student[header.value])}}</span> -->
+  <ng-template let-resource let-header="hd" #customtd>
+    <span class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">
+      {{joinCourses(resource['courses'])}}
+    </span>
+  </ng-template>
+</app-nebular-table>
