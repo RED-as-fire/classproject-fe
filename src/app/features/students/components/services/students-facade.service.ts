@@ -14,6 +14,12 @@ export class StudentsFacadeService {
     return this.http.retrieveGetCall("student");
   }
 
+  editStudent(student:Student){
+    return this.http.retrievePutCall(`student/${student.id}`,{
+      ...student
+    })
+  }
+
   deleteStudent(id:number){
     return this.http.retrieveDeleteCall(`student/${id}`);
   }
