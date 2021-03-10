@@ -11,20 +11,23 @@ export class AddModalComponent implements OnInit {
 
   name:string='';
   surname:string='';
+  id:number;
 
-  constructor(protected ref: NbDialogRef<AddModalComponent>) { }
+  constructor(public ref: NbDialogRef<AddModalComponent>) { }
 
   ngOnInit(): void {
   }
   cancel() {
     this.ref.close();
+
   }
 
   submit(){
-    type newStudent = Omit<Student, "id"| "courses">;
-    const student:newStudent={
+    type upsertStudent = Omit<Student,| "courses">;
+    const student:upsertStudent={
       name:this.name,
-      surname:this.surname
+      surname:this.surname,
+      id:this.id
     };
     this.ref.close(student);
   }
