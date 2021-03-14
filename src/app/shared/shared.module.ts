@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NbButtonModule, NbCardModule, NbInputModule, NbToggleModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbDialogModule, NbInputModule, NbToggleModule } from '@nebular/theme';
 import { NebularTableComponent } from './nebular-table/nebular-table.component';
 
 
@@ -19,6 +19,7 @@ import { NebularTableComponent } from './nebular-table/nebular-table.component';
     NbCardModule,
     NbButtonModule,
     NbInputModule,
+    NbDialogModule.forChild()
   ],
   exports:[
     NbToggleModule,

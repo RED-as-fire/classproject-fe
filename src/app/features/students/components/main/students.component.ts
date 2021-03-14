@@ -12,6 +12,7 @@ import {
 import {
   Student
 } from "src/app/core/model/student.interface";
+import { columns } from "src/app/core/model/tablecolumns.interface";
 import { AddModalComponent } from "../add-modal/add-modal.component";
 import {
   StudentsFacadeService
@@ -26,7 +27,7 @@ import {
 export class StudentsComponent implements OnInit {
 
   addModalInstance:AddModalComponent
-  cols: any[];
+  cols: columns[];
   onlyCourseLess: boolean = false;
   students: Student[];
   initialstudents: Student[];

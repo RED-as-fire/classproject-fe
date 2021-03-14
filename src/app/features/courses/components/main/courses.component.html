@@ -1,1 +1,4 @@
-<p>courses works!</p>
+<app-nebular-table [cols]="cols" [resources]="courses" [colToIgnore]="'courses'" [addModal]=""
+  (addResource)="upsertCourse('add',$event)" (deleteResource)="deleteCourse($event)"
+  (editResource)="upsertCourse('edit',$event)">
+</app-nebular-table>
